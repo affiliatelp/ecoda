@@ -1,0 +1,856 @@
+
+@charset "UTF-8";
+
+body {
+  margin: 0;
+	padding: 0;
+	/* ページの背景色はbodyに適用し、PCで左右の余白部分まで色を付ける */
+	background-color: #f5f5f5; 
+	font-family: 'Noto Sans JP', sans-serif;
+	line-height: 1.6;
+	color: #333;
+	text-align: center;
+	font-size:  1.2rem; /* 12px */
+}
+
+a {
+		text-decoration: none;
+}
+
+li {
+		list-style: none;
+}
+
+/* -------------------- 共通コンテナ設定 (.lp-containerのみで制御) -------------------- */
+.lp-container {
+		width: 100%; /* モバイルでは画面いっぱいに */
+		
+		/* PCでの中央揃えと固定幅の設定 */
+		margin: 0 auto;
+		
+		/* LPのコンテンツ領域の背景色（白） */
+		background-color: #ffffff;
+		padding-bottom: 5px;
+
+		/* モバイルでの左右の余白（コンテンツが画面端に張り付かないように） */
+		/* bodyにpaddingを入れる代わりに、lp-containerの子要素で対応 */
+}
+
+/* PC・タブレットでの幅固定と中央揃え */
+@media (min-width: 601px) {
+		/* bodyへの設定を外し、lp-containerにのみ適用 */
+		.lp-container {
+			max-width: 600px;
+				
+		}
+}
+
+/* 【画像】常に親要素の幅に合わせる */
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	/* 全てのブロックレベルの画像を中央揃えにする */
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+
+/* -------------------- 共通パーツ（CTAボタン・見出し） -------------------- */
+
+/* CTAボタン */
+.cta-btn {
+  display: block;
+  background-color: #e5231a; /* 鮮やかな赤 */
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px auto 10px;
+  width: 90%;
+  box-shadow: 0 4px 0 #b31b14; /* 立体感 */
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.btn-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 20px 0 0;
+}
+
+.cta-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b31b14;
+}
+
+.cta-btn .sub {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.cta-btn .main {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.cta-text {
+  font-size: 0.6rem;
+  text-align: left;
+  margin: 0 20px;
+  padding: 0 25px;
+  line-height: 1.1;
+}
+
+
+
+/* -------------------- セクション1：lp-intro -------------------- */
+
+/* ヘッダー部分 */
+
+.hero-box .pr-text {
+  font-size: 0.5rem;
+  color: #666;
+  padding: 5px 0;
+}
+
+.hero-box h1 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: left;
+}
+
+/* メッセージボックス（吹き出し画像） */
+.message-box {
+  padding: 20px 0;
+}
+
+/* 青い部分 (Problem Box) */
+.problem-box {
+  background-color: #0081b9; /* 画像通りの鮮やかな青 */
+  color: #fff;
+  padding: 40px 20px 85px;
+  position: relative;
+  /* 尖った形状を作る */
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  z-index: 5;
+}
+
+.problem-title {
+  color: #ffeb3b;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  /* border-bottomは::afterで自作するので外します */
+  display: inline-block;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.problem-title::before {
+  /* ● ● という文字を擬似要素で入れる */
+  content: '● ●'; 
+  position: absolute;
+  top: 25px; /* 文字の上に配置 */
+  left: 33%;
+  transform: translateX(-50%);
+  font-size: 0.5rem; /* 点の大きさ */
+  letter-spacing: 0.5em; /* 点と点の間隔 */
+  color: #ffeb3b;
+}
+
+.problem-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%; 
+  height: 1.5px; /* 線の太さ */
+  background-color: #ffeb3b;
+}
+
+.check-list {
+  text-align: left;
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.check-list li {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 18px;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+/* チェックマーク（黄色い円） */
+.check-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #ffeb3b;
+  color: #0081b9;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 19px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 解決策エリア (Solution Box) */
+.solution-box {
+  background-color: #fff;
+  padding-top: 50px; /* 青い尖りと重なるための余白 */
+  margin-top: -12px; /* 青い部分の下に少し潜り込ませる */
+  position: relative;
+  z-index: 1;
+}
+
+.solution-box .cta-btn {
+  margin-top: 0;
+}
+
+.yellow-label {
+  background-color: #f8c63d; /* 黄色のラベル */
+  color: #0081b9;
+  font-weight: bold;
+  padding: 10px;
+  display: inline-block;
+  width: 90%;
+  font-size: 1rem;
+}
+
+.offer-content {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.offer-content img {
+  width: 45%;
+  margin: 0;
+}
+
+.offer-text-l {
+  font-size: 2rem;
+  color: #333;
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+.orange {
+  color: #f29100;
+  font-size: 3rem;
+}
+
+
+/* -------------------- セクション2：benefits-section -------------------- */
+
+.benefits-section {
+  padding: 40px 10px;
+  background-color: #fff;
+}
+
+.benefits-section .cta-text {
+  padding: 0 18px;
+
+}
+
+/* セクションメインタイトル */
+.section-header .main-title {
+  font-size: 2rem;
+  margin: 20px 0 40px 0;
+  font-weight: 100;
+}
+
+.black {
+  background: linear-gradient(transparent 70%, #ffff00 70%);
+}
+
+/* 「導入」部分のハイライト装飾 */
+.orange2 {
+  color: #f29100;
+  font-size: 3.2rem;
+}
+
+/* 各メリットのアイテム */
+.benefit-item {
+  margin-bottom: 50px;
+  overflow: hidden; /* 回り込み解除用 */
+  text-align: left; /* 親要素で左寄せを保証 */
+}
+
+/* メリットの見出し（青いライン付き） */
+.benefit-sub-title {
+  color: #0081b9;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #0081b9;
+  padding: 0 15px 5px 15px;
+  margin-bottom: 15px;
+  display: inline-block
+}
+
+/* 右寄せ用のクラス */
+.is-right {
+  display: table;    /* inline-blockの代わりにtableを使うと右寄せ制御が楽になります */
+  margin-left: auto; /* これで要素全体が右に寄ります */
+  margin-right: 0;
+  text-align: right;
+  border-bottom: 2px solid #0081b9; /* 線を復活させる */
+}
+
+/* 文字の下だけ線を引きたいので擬似要素で線を再定義 */
+.is-right::after {
+  content: "";
+  display: block;
+  width: fit-content; /* 文字の長さに合わせる */
+  margin-left: auto; /* 右に寄せる */
+  border-bottom: 2px solid #0081b9;
+  padding-bottom: 5px;
+}
+
+/* 説明文 */
+.benefit-desc {
+  text-align: left;
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+  padding: 0px 35px;
+}
+
+.benefit-item-text {
+  font-size: 0.7rem;
+  text-align: left;
+  padding: 0px 35px;
+  margin-bottom: 5px;
+}
+
+/* 画像エリア（吹き出し＋人物） */
+.benefit-visual {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.balloon-img {
+  width: 95%; /* 画像の大きさを微調整 */
+  display: inline-block; /* 寄せ（text-align）を効かせるため */
+}
+
+/* 最後のCTAまでの余白調整 */
+.bottom-cta {
+  margin-top: 40px;
+}
+
+
+/* -------------------- セクション3：reason-section -------------------- */
+
+.reason-section {
+  padding: 60px 0 45px 0;
+  background-color: #fff;
+  position: relative;
+}
+
+/* 背景の薄い「REASON」テキスト */
+.reason-header {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.reason-header .en-title {
+  position: absolute;
+  top: -49px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem; /* かなり大きく */
+  font-weight: bold;
+  color: #eef4f8; /* 非常に薄い青色 */
+  z-index: 1;
+  letter-spacing: 0.2em;
+}
+
+.reason-header .main-title {
+  position: relative;
+  z-index: 2;
+  background-color: #f8c63d; /* 黄色背景 */
+  color: #0081b9; /* 青文字 */
+  display: inline-block;
+  padding: 10px 30px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  width: 100%; /* 横いっぱいに背景色を出す */
+  box-sizing: border-box;
+}
+
+/* 各理由のアイテム */
+.reason-item {
+  position: relative;
+  margin: 60px 0;
+  padding: 0 20px;
+}
+
+/* 背後の大きな数字 (01, 02...) */
+.reason-number {
+  position: absolute;
+  top: -30px;
+  left: 23%;
+  transform: translateX(-50%);
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #FFEAA6;
+  z-index: 1;
+  line-height: 1;
+}
+
+/* 小見出し */
+.reason-sub-title {
+  position: relative;
+  z-index: 2;
+  color: #0081b9;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: left;
+  padding: 0 32px;
+}
+
+.reason-text {
+  font-size: 0.7rem;
+
+}
+
+/* 写真部分 */
+.reason-visual {
+  margin: 20px 0;
+}
+
+.reason-img {
+  width: 90%;
+  max-width: 450px;
+  border-radius: 5px; /* 角を少し丸める */
+}
+
+/* 説明文 */
+.reason-desc {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.7;
+  text-align: center; /* 中央寄せ */
+  padding: 0 10px;
+}
+
+/* 最後のアイテムの余白調整 */
+.reason-item:last-of-type {
+  margin-bottom: 40px;
+}
+
+/* -------------------- セクション4：user-voice-section -------------------- */
+
+.user-voice-section {
+  padding: 60px 0;
+  background-color: #fff;
+  position: relative;
+}
+
+/* 背景の薄い「User’s Voice」テキスト */
+.voice-header {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.voice-header .en-bg-text {
+  position: absolute;
+  top: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #eef4f8; /* 薄い青 */
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.voice-header .main-title {
+  position: relative;
+  z-index: 2;
+  background-color: #f8c63d; /* 黄色背景 */
+  color: #0081b9; /* 青文字 */
+  display: inline-block;
+  padding: 15px 20px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.4;
+}
+
+/* 各お客様のアイテムボックス */
+.voice-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 35px;
+  margin-bottom: 50px;
+}
+
+/* 2番目のアイテム (is-reverse) は左右を入れ替え */
+.voice-item.is-reverse {
+  flex-direction: row-reverse;
+}
+
+/* 人物写真 */
+.voice-visual {
+  flex: 0 0 40%; /* 幅を40%に固定 */
+}
+
+.user-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px; /* 写真の角をわずかに丸める */
+}
+
+/* テキストコンテンツ */
+.voice-content {
+  flex: 1;
+  text-align: left;
+}
+
+/* 黄色マーカー付きの見出し */
+.voice-sub-title {
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline; /* マーカーが文字幅に合うように */
+  background: linear-gradient(transparent 60%, #fff9aa 60%);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.voice-text {
+  font-size: 0.8rem;
+  margin-top: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 最後のアイテムの余白 */
+.voice-item:last-child {
+  margin-bottom: 20px;
+}
+
+
+/* -------------------- セクション5：process-section -------------------- */
+
+.process-section {
+  padding: 60px 0 5px 0;
+  background-color: #fff;
+  position: relative;
+}
+
+/* 背景の薄い「Process」テキスト */
+.process-header {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.process-header .en-bg-text {
+  position: absolute;
+  top: -57px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #eef4f8;
+  z-index: 1;
+  letter-spacing: 0.1em;
+}
+
+.process-header .main-title {
+  position: relative;
+  z-index: 2;
+  background-color: #f8c63d;
+  color: #0081b9;
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 1.4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* リスト全体のコンテナ */
+.process-list {
+  padding: 0 30px 0 60px;
+  text-align: left;
+  position: relative;
+}
+
+/* 左側の縦線 */
+.process-list::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  left: 49px;
+  width: 2px;
+  height: 84%;
+  background-color: #f8c63d;
+  z-index: 1;
+}
+
+/* 各ステップの項目 */
+.process-item {
+  position: relative;
+  margin-bottom: 60px;
+  list-style: none;
+}
+
+/* ステップのタイトル */
+.step-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* 数字の丸 */
+.step-num {
+  background-color: #f8c63d;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-right: 15px;
+  flex-shrink: 0;
+  margin-left: -22px; /* 縦線の上に重ねるための調整 */
+}
+
+/* 説明文とサブテキスト */
+.process-desc, .process-sub-text {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding: 0 15px 0 10px;
+}
+
+.process-sub-text {
+  font-weight: bold;
+  color: #333;
+}
+
+/* 画像エリア */
+.process-visual {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.process-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+/* 最後のCTAエリア（〆切まで〜） */
+.final-announce {
+  margin-top: 50px;
+}
+
+.announce-visual {
+  margin-bottom: -20px; /* CTAボタンに少し被せる演出 */
+  position: relative;
+  z-index: 2;
+  padding: 0 5px;
+}
+
+.announce-img {
+  padding: 0 5%;
+}
+
+.company {
+    font-size: 0.5rem;
+    padding: 3px 0 0px 0;
+}
+
+
+.company a {
+	color: #333;
+	text-decoration: underline;
+}
+
+
+
+/* -------------------- PC・タブレット向けの調整 -------------------- */
+@media (min-width: 555px) {
+
+    .hero-box .pr-text {
+      font-size: 0.6rem;
+    }
+
+    .problem-title {
+      font-size: 1.9rem;
+    }
+
+    .check-list {
+      max-width: 88%;
+    }
+
+    .check-list li {
+      font-size: 0.95rem;
+    }
+
+    .offer-text-l {
+      font-size: 2.5rem;
+    }
+
+    .offer-text {
+      font-size: 1.2rem;
+    }
+
+    .orange {
+      color: #f29100;
+      font-size: 3.8rem;
+    }
+
+    .cta-btn .sub {
+      font-size: 1.3rem;
+    }
+
+    .cta-btn .main {
+      display: block;
+      font-size: 2rem;
+    }
+
+    .section-header .main-title {
+      font-size: 3.3rem;
+    }
+
+    .orange2 {
+      font-size: 4.3rem;
+    }
+
+    .benefit-sub-title {
+      font-size: 1.7rem;
+    }
+
+    .benefit-desc {
+      font-size: 1.2rem;
+    }
+
+    .benefits-section {
+      padding: 40px 50px;
+    }
+
+    .reason-header .en-title {
+      font-size: 4rem; /* かなり大きく */
+      top: -70px;
+    }
+
+    .reason-header .main-title {
+      font-size: 1.8rem;
+    }
+
+    .reason-sub-title {
+      font-size: 1.2rem;
+      padding: 0 60px;
+    }
+
+    .reason-desc {
+      font-size: 1.1rem;
+    }
+
+    .reason-number {
+      font-size: 5rem;
+    }
+
+    .voice-header .en-bg-text {
+      font-size: 3.5rem;
+      top: -70px;
+    }
+
+    .voice-header .main-title {
+      font-size: 1.6rem;
+    }
+
+    .voice-item {
+      padding: 0 65px;
+    }
+
+    .voice-sub-title {
+      font-size: 1.1rem;
+    }
+
+    .voice-text {
+      font-size: 0.85rem;
+    }
+
+    .process-header .en-bg-text {
+      font-size: 3.5rem;
+      top: -70px;
+    }
+
+    .process-header .main-title{
+      font-size: 1.8rem;
+    }
+
+    .process-list {
+      padding: 0 30px 0 83px;
+    }
+
+    .process-list::before {
+      top: 4px;
+      left: 72px;
+      height: 83%;
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+    }
+
+    .process-desc, .process-sub-text {
+      font-size: 0.95rem;
+    }
+
+    .announce-img {
+      padding: 0 20px;
+    }
+
+    .problem-box {
+      clip-path: polygon(0 0, 100% 0, 100% 83%, 50% 100%, 0 83%);
+  z-index: 5;
+      padding: 40px 20px 110px;
+    }
+
+    .check-list li::before {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+    }
+
+    .yellow-label {
+      font-size: 1.2rem;
+    }
+
+    .cta-text {
+      font-size: 0.8rem;
+      padding: 0 93px;
+    }
+
+    .company {
+      font-size: 0.65rem;
+    }
+
+}
