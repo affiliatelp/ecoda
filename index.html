@@ -9,7 +9,11 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+
+      // Google広告のID
       gtag('config', 'AW-17798079473');
+      // GA4のID
+      gtag('config', 'G-W26QDJN9H8');
     </script>
 
     <title>Solar Support Net</title>
@@ -425,5 +429,39 @@
       </footer>
 
     </main>
+
+    <!-- GA4測定用 -->
+    <script>
+    (function() {
+        // 計測したいポイント（25%刻み）
+        var scrollPoints = [25, 50, 75, 90]; 
+        var sentPoints = [];
+
+        window.addEventListener('scroll', function() {
+            var h = document.documentElement, 
+                b = document.body,
+                st = 'scrollTop',
+                sh = 'scrollHeight';
+            
+            // 現在のスクロール進捗率を計算
+            var scrollPercent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+
+            scrollPoints.forEach(function(point) {
+                // 指定したポイントを超え、かつ未送信の場合に実行
+                if (scrollPercent >= point && sentPoints.indexOf(point) === -1) {
+                    sentPoints.push(point);
+                    
+                    // 既存のgtag関数を使用してイベントを送信
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'lp_scroll_depth', {
+                            'depth_percent': point
+                        });
+                    }
+                }
+            });
+        }, {passive: true});
+    })();
+    </script>
+
   </body>
 </html>
